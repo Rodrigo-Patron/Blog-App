@@ -2,6 +2,7 @@ package com.app.blog.controller;
 
 import com.app.blog.entity.Post;
 import com.app.blog.service.PostService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,15 @@ public class PostController {
         }
     }
 
-
+@GetMapping("/{postId}")
+public ResponseEntity<?> getPost(@PathVariable Long postId){
+        try{
+            Post post = postService.getPost((postId));
+            return ResponseEntity.ok(post);
+        }catch(EntityNotFoundException ex){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+}
 
 
 }

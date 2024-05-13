@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { PostService } from '../../service/post.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { PostService } from '../../service/post.service';
 import { CommonModule } from '@angular/common';
 import {
   MatCard,
@@ -10,13 +11,13 @@ import {
   MatCardSubtitle,
   MatCardTitle,
 } from '@angular/material/card';
-import { MatIcon } from '@angular/material/icon';
-import { MatGridList, MatGridTile } from '@angular/material/grid-list';
 import { MatButton } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
+import { MatGridList, MatGridTile } from '@angular/material/grid-list';
+import { MatIcon } from '@angular/material/icon';
+import { MatChip, MatChipSet } from '@angular/material/chips';
 
 @Component({
-  selector: 'app-all-posts',
+  selector: 'app-view-post',
   standalone: true,
   imports: [
     CommonModule,
@@ -28,31 +29,33 @@ import { RouterLink } from '@angular/router';
     MatCardContent,
     MatCardActions,
     MatIcon,
-    MatGridList,
-    MatGridTile,
-    MatButton
-
+    MatButton,
+    MatChipSet,
+    MatChip
   ],
-  templateUrl: './all-posts.component.html',
-  styleUrl: './all-posts.component.scss',
+  templateUrl: './view-post.component.html',
+  styleUrl: './view-post.component.scss',
 })
-export class AllPostsComponent {
-  posts: any;
+export class ViewPostComponent {
+  postId = this.activatedRoute.snapshot.params['id'];
+  post: any;
 
   constructor(
     private postService: PostService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.getAllPosts();
+    console.log(this.postId);
+    this.getPost();
   }
 
-  getAllPosts() {
-    this.postService.getAllPosts().subscribe({
+  getPost() {
+    this.postService.getPost(this.postId).subscribe({
       next: (res) => {
         console.log('res:', res);
-        this.posts = res;
+        this.post = res;
       },
       error: (err) => {
         this.snackBar.open('Something went wrong!', 'Close'), console.log(err);
