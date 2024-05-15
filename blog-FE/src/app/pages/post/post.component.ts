@@ -38,7 +38,6 @@ import { MatButton } from '@angular/material/button';
     MatIcon,
     MatButton,
     ReactiveFormsModule,
-    
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss',
@@ -84,11 +83,11 @@ export class PostComponent {
 
     this.postService.createPost(data).subscribe({
       next: (res) => {
-        this.snackBar.open('Post created successfully!', 'Close');
+        this.snackBar.open('Your post has been created!', 'Ok');
         this.router.navigateByUrl('/');
       },
       error: (err) => {
-        this.snackBar.open('Something went wrong!', 'Close'), console.log(err);
+        this.snackBar.open('Sorry, something went wrong!', 'Close'), console.log(err);
       },
     });
   }

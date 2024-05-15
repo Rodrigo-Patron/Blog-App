@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-const BASIC_URL = 'http://localhost:8080/';
+const BASE_URL = 'http://localhost:8080/';
 
 @Injectable({
   providedIn: 'root',
@@ -10,15 +10,20 @@ const BASIC_URL = 'http://localhost:8080/';
 export class PostService {
   constructor(private http: HttpClient) {}
 
-  createPost(data: any): Observable<any> {
-    return this.http.post(BASIC_URL + `api/posts`, data);
+ createPost(data: any): Observable<any> {
+    return this.http.post(BASE_URL + `api/posts`, data);
   }
 
-  getAllPosts(): Observable<any> {
-    return this.http.get(BASIC_URL + `api/posts`);
+ getAllPosts(): Observable<any> {
+    return this.http.get(BASE_URL + `api/posts`);
   }
 
-  getPost(postId:number): Observable<any> {
-    return this.http.get(BASIC_URL + `api/posts/${postId}`);
+ getPost(postId:number): Observable<any> {
+    return this.http.get(BASE_URL + `api/posts/${postId}`);
   }
+
+ likePost(postId:number): Observable<any> {
+    return this.http.put(BASE_URL + `api/posts/${postId}/likePost`,{});
+  }
+
 }

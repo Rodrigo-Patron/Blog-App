@@ -47,5 +47,15 @@ public ResponseEntity<?> getPost(@PathVariable Long postId){
     }
 }
 
+    @PutMapping("/{postId}/likePost")
+    public ResponseEntity<?> likePost(@PathVariable Long postId){
+        try{
+            postService.likePost(postId);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }catch(EntityNotFoundException ex){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
+    }
+
 
 }
