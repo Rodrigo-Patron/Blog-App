@@ -1,1 +1,1 @@
-Blog Application, built with Java/Spring Boot for  backend, Angular/TypeScript for frontend and MySQL as Database. Allowing the user to create a post, ad a comment, like a post and counting the visitors. 
+Blog Application, built with Java/Spring Boot for  backend, Angular/TypeScript for frontend and MySQL as Database. Allowing the user to create a post, add a comment, like a post and counting the visitors. 
