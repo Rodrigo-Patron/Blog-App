@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
 import { PostService } from '../../service/post.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import {
   MatCard,
   MatCardActions,
@@ -10,16 +16,20 @@ import {
   MatCardSubtitle,
   MatCardTitle,
 } from '@angular/material/card';
-import { MatIcon } from '@angular/material/icon';
 import { MatGridList, MatGridTile } from '@angular/material/grid-list';
-import { MatButton } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-all-posts',
+  selector: 'app-search-post',
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatIcon,
+    MatSuffix,
+    MatButton,
     RouterLink,
     MatCard,
     MatCardHeader,
@@ -27,35 +37,30 @@ import { RouterLink } from '@angular/router';
     MatCardSubtitle,
     MatCardContent,
     MatCardActions,
-    MatIcon,
     MatGridList,
     MatGridTile,
-    MatButton
-
   ],
-  templateUrl: './all-posts.component.html',
-  styleUrl: './all-posts.component.scss',
+  templateUrl: './search-post.component.html',
+  styleUrl: './search-post.component.scss',
 })
-export class AllPostsComponent {
-  posts: any;
+export class SearchPostComponent {
+  posts: any = [];
+  name: any = '';
 
   constructor(
     private postService: PostService,
     private snackBar: MatSnackBar
   ) {}
 
-  ngOnInit() {
-    this.getAllPosts();
-  }
-
-  getAllPosts() {
-    this.postService.getAllPosts().subscribe({
+  searchPost() {
+    this.postService.searchPost(this.name).subscribe({
       next: (res) => {
-        // console.log('res:', res);
         this.posts = res;
+        // console.log(this.posts);
       },
       error: (err) => {
-        this.snackBar.open('Something went wrong!', 'Close'), console.log(err);
+        this.snackBar.open('Sorry, something went wrong!', 'Close'),
+          console.log(err);
       },
     });
   }

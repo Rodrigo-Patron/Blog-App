@@ -58,4 +58,13 @@ public ResponseEntity<?> getPost(@PathVariable Long postId){
     }
 
 
+    @GetMapping("/search/{name}")
+    public ResponseEntity<?> searchPost(@PathVariable String name){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(postService.searchPost(name));
+        }catch(Exception ex){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }

@@ -50,4 +50,8 @@ public class PostService {
         }
     }
 
+    public List<Post> searchPost(String name){
+        return postRepository.findByName(name);
+    }
+
 }

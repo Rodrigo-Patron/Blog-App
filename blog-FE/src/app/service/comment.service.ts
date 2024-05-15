@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-const BASE_URL = 'http://localhost:8080/';
+const BASE_URL = 'http://localhost:8080/api';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +17,11 @@ export class CommentService {
       postId:postId,
       postedBy:postedBy
     }
-    return this.http.post<any>(BASE_URL + `api/comments`, message, {params});
+    return this.http.post<any>(BASE_URL + `/comments`, message, {params});
   }
 
 
   getCommentsByPost(postId:number):Observable<any>{
-    return this.http.get(BASE_URL + `api/comments/${postId}`)
+    return this.http.get(BASE_URL + `/comments/${postId}`)
   }
 }
